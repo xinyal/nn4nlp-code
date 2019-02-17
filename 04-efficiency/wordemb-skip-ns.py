@@ -50,7 +50,7 @@ with open(labels_location, 'w') as labels_file:
     labels_file.write(i2w[i] + '\n')
 
 # Start DyNet and define trainer
-model = dy.Model()
+model = dy.ParameterCollection()
 trainer = dy.SimpleSGDTrainer(model, learning_rate=0.1)
 
 # Define the model
@@ -104,7 +104,6 @@ for ITER in range(100):
     my_loss = calc_sent_loss(sent)
     dev_loss += my_loss.value()
     dev_words += len(sent)
-    trainer.update()
   print("iter %r: dev loss/word=%.4f, ppl=%.4f, time=%.2fs" % (ITER, dev_loss/dev_words, math.exp(dev_loss/dev_words), time.time()-start))
 
   print("saving embedding files")
